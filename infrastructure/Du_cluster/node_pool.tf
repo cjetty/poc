@@ -6,7 +6,7 @@ data "google_service_account" "myaccount" {
 resource "google_container_node_pool" "du-node-pool" {
   name       = "du-node-pool"
   cluster    = google_container_cluster.du-cluster.id
-  node_count = 1
+  node_count = 3
 
   node_config {
     preemptible  = true
