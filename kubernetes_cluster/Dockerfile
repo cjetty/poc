@@ -12,4 +12,4 @@ WORKDIR /home/api_scripts
 
 RUN /usr/bin/pip install -r requirements.txt
 
-CMD uvicorn main:app --reload  # PORT 8000
+CMD python main.py  # PORT 8000
