@@ -25,8 +25,8 @@ env:
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}    # TODO: update to cluster name
   GKE_ZONE: ${{ secrets.GKE_ZONE }}   # TODO: update to cluster zone
   DEPLOYMENT_NAME: ${{ secrets.GKE_DEPLOYMENT }} # TODO: update to deployment name
-  REPOSITORY: ${{ secrets.GAR_REPO }} # TODO: update to Artifact Registry docker repository
-  IMAGE: ${{ secrets.IMAGE }}
+  REPOSITORY: du-images # TODO: update to Artifact Registry docker repository
+  IMAGE: source_image_new
 
 jobs:
   bring-up-infrastructure-using-terraform:
@@ -118,8 +118,8 @@ jobs:
       working-directory: ./kubernetes_cluster
       run: |
         docker build . -t $IMAGE
-        docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE"
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE"
+        docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/du-poc/$REPOSITORY/$IMAGE"
+        docker push "$GAR_LOCATION-docker.pkg.dev/du-poc/$REPOSITORY/$IMAGE"
 
     # Push the Docker image to Google Artifact Registry
     - name: Publish
