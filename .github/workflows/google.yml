@@ -44,11 +44,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      working-directory: ./infrastructure
-      run: terraform init
-
     - name: setup gcloud CLI
       uses: google-github-actions/auth@v0
       with:
@@ -56,6 +51,11 @@ jobs:
         # this is the json key of the service account created on the project
         credentials_json: ${{ secrets.GCP_CREDENTIALS }}  
         export_default_credentials: true
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      working-directory: ./infrastructure
+      run: terraform init
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
