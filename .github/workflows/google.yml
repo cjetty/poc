@@ -117,9 +117,10 @@ jobs:
     - name: Build
       working-directory: ./kubernetes_cluster
       run: |
-        docker build . -t ${{ secrets.IMAGE }}
-        docker tag ${{ secrets.IMAGE }} "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/${{ secrets.GAR_REPO }}/${{ secrets.IMAGE }}"
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/${{ secrets.GAR_REPO }}/${{ secrets.IMAGE }}"
+        docker build . -t $IMAGE
+        docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE"
+        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE"
+
 
     # Push the Docker image to Google Artifact Registry
     - name: Publish
