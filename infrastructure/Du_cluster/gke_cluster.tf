@@ -1,8 +1,9 @@
 resource "google_container_cluster" "du-cluster" {
-  name               = "du-cluster"
-  network            = "default"
-  location           = var.zone
+  name                     = "du-cluster"
+  network                  = "default"
+  location                 = var.zone
   remove_default_node_pool = true
+  initial_node_count       = 1 
 }
 
 
