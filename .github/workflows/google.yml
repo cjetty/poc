@@ -120,6 +120,12 @@ jobs:
     # Build the Docker image
     - name: Build
       working-directory: ./kubernetes_cluster
+      uses: google-github-actions/auth@v0
+      with:
+        project_id: ${{ secrets.GKE_PROJECT }}
+        # this is the json key of the service account created on the project
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}  
+        export_default_credentials: true
       run: |
         docker build . -t ${{ secrets.IMAGE }}
         docker tag ${{ secrets.IMAGE }} "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/${{ secrets.GAR_REPO }}/${{ secrets.IMAGE }}"
