@@ -113,14 +113,6 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
 
-    - name: setup gcloud CLI
-      uses: google-github-actions/auth@v0
-      with:
-        project_id: ${{ secrets.GKE_PROJECT }}
-        # this is the json key of the service account created on the project
-        credentials_json: ${{ secrets.GCP_CREDENTIALS }}  
-        export_default_credentials: true
-
     # Build the Docker image
     - name: Build
       working-directory: ./kubernetes_cluster
