@@ -111,6 +111,7 @@ jobs:
 
     # Build the Docker image
     - name: Build
+      working-directory: ./kubernetes_cluster
       run: |-
         docker build \
           --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
@@ -119,15 +120,18 @@ jobs:
           .
     # Push the Docker image to Google Artifact Registry
     - name: Publish
+      working-directory: ./kubernetes_cluster
       run: |-
         docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
     # Set up kustomize
     - name: Set up Kustomize
+      working-directory: ./kubernetes_cluster
       run: |-
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
+      working-directory: ./kubernetes_cluster
       run: |-
         cd kubernetes_cluster
         # replacing the image name in the k8s template
