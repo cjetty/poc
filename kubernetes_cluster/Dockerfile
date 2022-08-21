@@ -10,6 +10,6 @@ COPY . /home/api_scripts
 
 WORKDIR /home/api_scripts
 
-RUN /usr/bin/python3-pip install -r requirements.txt
+RUN /usr/bin/pip install -r requirements.txt
 
 CMD uvicorn main:app --reload  # PORT 8000
