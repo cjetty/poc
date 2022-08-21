@@ -57,7 +57,7 @@ jobs:
       with:
         project_id: ${{ secrets.GKE_PROJECT }}
         # this is the json key of the service account created on the project
-        service_account_key: ${{ secrets.GCP_CREDENTIALS }}  
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}  
         export_default_credentials: true
 
     # Generates an execution plan for Terraform
@@ -72,6 +72,7 @@ jobs:
 
 
   setup-build-publish-deploy:
+    needs: bring-up-infrastructure-using-terraform
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     environment: production
