@@ -49,11 +49,6 @@ jobs:
       working-directory: ./infrastructure
       run: terraform init
 
-    # Checks that all Terraform configuration files adhere to a canonical format
-    - name: Terraform Format
-      working-directory: ./infrastructure
-      run: terraform fmt -check
-
     - name: setup gcloud CLI
       uses: google-github-actions/auth@v0
       with:
