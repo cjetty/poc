@@ -9,3 +9,12 @@ module "Du_cluster" {
   source  = "./Du_cluster"
 }
 
+resource "google_storage_bucket" "default" {
+  name          = "du-poc-github-backend-state"
+  force_destroy = false
+  location      = var.region
+  storage_class = "STANDARD"
+  versioning {
+    enabled = true
+  }
+}
