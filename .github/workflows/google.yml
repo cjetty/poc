@@ -113,7 +113,6 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
 
-        
     # Build the Docker image
     - name: Build
       working-directory: ./kubernetes_cluster
