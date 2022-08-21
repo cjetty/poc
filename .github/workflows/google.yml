@@ -121,7 +121,6 @@ jobs:
         docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE"
         docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE"
 
-
     # Push the Docker image to Google Artifact Registry
     - name: Publish
       working-directory: ./kubernetes_cluster
