@@ -139,5 +139,5 @@ jobs:
         # replacing the image name in the k8s template
         ./kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE
         ./kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
-        kubectl get services -o wide
+        kubectl rollout status deployment/$DEPLOYMENT_NAME -n du-poc
+        kubectl get services -n du-poc -o wide
