@@ -100,12 +100,13 @@ jobs:
         export_default_credentials: true
 
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@v0
       with:
         install_components: alpha
 
     - name: Docker configuration
       run: |-
+        /usr/bin/python3 -m pip install google-crc32c --target /opt/hostedtoolcache/gcloud/399.0.0/x64/lib/third_party
         gcloud --quiet auth configure-docker $GAR_LOCATION-docker.pkg.dev
 
     # Get the GKE credentials so we can deploy to the cluster
