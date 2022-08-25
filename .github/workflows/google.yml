@@ -118,14 +118,14 @@ jobs:
       working-directory: ./kubernetes_cluster
       run: |
         docker build . -t $IMAGE
-        docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/du-poc/$REPOSITORY/$IMAGE"
+        docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/du-poc/$REPOSITORY/$IMAGE:$GITHUB_SHA"
         docker push "$GAR_LOCATION-docker.pkg.dev/du-poc/$REPOSITORY/$IMAGE"
 
     # Push the Docker image to Google Artifact Registry
     - name: Publish
       working-directory: ./kubernetes_cluster
       run: |-
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE"
+        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
     # Set up kustomize
     - name: Set up Kustomize
       working-directory: ./kubernetes_cluster
@@ -137,7 +137,7 @@ jobs:
       working-directory: ./kubernetes_cluster
       run: |-
         # replacing the image name in the k8s template
-        ./kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE
+        ./kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME -n du-poc
         kubectl get services -n du-poc -o wide

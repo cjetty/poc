@@ -28,7 +28,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: spec.nodeName
-        image: europe-west2-docker.pkg.dev/du-poc/du-images/du_poc_image:latest
+        image: europe-west2-docker.pkg.dev/du-poc/du-images/du_poc_image
         imagePullPolicy: IfNotPresent
         name: ru-container
         resources: {}

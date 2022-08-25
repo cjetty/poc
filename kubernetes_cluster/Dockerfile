@@ -14,6 +14,8 @@ RUN apt-get install -y net-tools
 
 RUN apt-get install -y inetutils-ping 
 
+RUN apt-get install -y curl
+
 RUN apt-get install -y vim 
 
 COPY . /home/api_scripts
