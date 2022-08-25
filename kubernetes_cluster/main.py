@@ -25,7 +25,7 @@ def pcap_trigger(input: ReplayInput):
     if input.action == "start":
         print("starting PCAP application..")
         print(f"Given Parameters loop: {input.loop}")
-        p = subprocess.Popen(''.join(["/app/replay.sh", ' ',
+        p = subprocess.Popen(''.join(["/home/api_scripts/start_pcap_process.sh", ' ',
                                     str(input.loop)]), 
                             stdout=subprocess.PIPE, shell=True)
         print(p.communicate())
