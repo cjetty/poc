@@ -22,4 +22,4 @@ WORKDIR /home/api_scripts
 
 RUN /usr/bin/pip install -r requirements.txt
 
-CMD python main.py  # PORT 8000
+CMD python3 main.py  # PORT 8000
