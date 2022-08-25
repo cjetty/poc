@@ -101,6 +101,8 @@ jobs:
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v0
+      with:
+        install_components: alpha
 
     - name: Docker configuration
       run: |-
@@ -114,37 +116,44 @@ jobs:
         location: ${{ env.GKE_ZONE }}
 
     #Pull existing image from GAR as base image
-    - name: Pull Existing image
-      working-directory: ./kubernetes_cluster
+    #- name: Pull Existing image
+    #  working-directory: ./kubernetes_cluster
+    #  run: |
+    #    docker pull europe-west2-docker.pkg.dev/du-poc/du-images/du_poc_image:latest
+
+    - name: Pull Pcap file from GCP bucket
+      working-directory:  ./kubernetes_cluster
       run: |
-        docker pull europe-west2-docker.pkg.dev/du-poc/du-images/du_poc_image:latest
+        gcloud alpha storage cp gs://du_poc/port0_2022_7_1_8_29_51_0.pcap ./
+        ls -alh .
 
     # Build the Docker image
     - name: Build
       working-directory: ./kubernetes_cluster
       run: |
         docker build . -t $IMAGE
-        docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/du-poc/$REPOSITORY/$IMAGE"
-        docker push "$GAR_LOCATION-docker.pkg.dev/du-poc/$REPOSITORY/$IMAGE"
+        docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
 
     # Push the Docker image to Google Artifact Registry
     - name: Publish
       if: always()
       working-directory: ./kubernetes_cluster
       run: |-
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE"
+        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
+
     # Set up kustomize
     - name: Set up Kustomize
       working-directory: ./kubernetes_cluster
       run: |-
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
+
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       working-directory: ./kubernetes_cluster
       run: |-
         # replacing the image name in the k8s template
-        # ./kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
+        ./kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA
         ./kustomize build . | kubectl apply -f -
         kubectl rollout status deployment/$DEPLOYMENT_NAME -n du-poc
         kubectl get services -n du-poc -o wide
