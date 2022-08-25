@@ -124,7 +124,7 @@ jobs:
       working-directory: ./kubernetes_cluster
       run: |
         docker build . -t $IMAGE
-        docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/du-poc/$REPOSITORY/$IMAGE:$GITHUB_SHA"
+        docker tag $IMAGE "$GAR_LOCATION-docker.pkg.dev/du-poc/$REPOSITORY/$IMAGE"
         docker push "$GAR_LOCATION-docker.pkg.dev/du-poc/$REPOSITORY/$IMAGE"
 
     # Push the Docker image to Google Artifact Registry
@@ -132,7 +132,7 @@ jobs:
       if: always()
       working-directory: ./kubernetes_cluster
       run: |-
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
+        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE"
     # Set up kustomize
     - name: Set up Kustomize
       working-directory: ./kubernetes_cluster
