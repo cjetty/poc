@@ -113,6 +113,12 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
 
+    #Pull existing image from GAR as base image
+    - name: Pull Existing image
+      working-directory: ./kubernetes_cluster
+      run: |
+        docker pull europe-west2-docker.pkg.dev/du-poc/du-images/du_poc_image:latest
+
     # Build the Docker image
     - name: Build
       working-directory: ./kubernetes_cluster
