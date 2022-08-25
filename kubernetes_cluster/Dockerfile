@@ -2,8 +2,6 @@ FROM ubuntu:20.04
 
 RUN apt-get update
 
-RUN apt-get install -y apt-utils
-
 RUN apt-get install -y python3.6
 
 RUN apt-get install -y python3-pip
@@ -17,6 +15,8 @@ RUN apt-get install -y net-tools
 RUN apt-get install -y inetutils-ping 
 
 RUN apt-get install -y curl
+
+RUN apt-get install -y apt-utils
 
 RUN apt-get install -y vim 
 
