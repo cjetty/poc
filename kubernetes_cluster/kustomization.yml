@@ -11,5 +11,7 @@ metadata:
       #   app: hello
 resources:
   - create_namespace.yml
-  - deployment.yml
-  - expose.yml
+  - du_deployment.yml
+  - du_expose.yml
+  - ru_deployment.yml
+  - ru_expose.yml

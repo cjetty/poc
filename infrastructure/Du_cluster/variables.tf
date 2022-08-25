@@ -1,5 +1,5 @@
 variable "du_instance_type" {
-  default = "e2-large"
+  default = "e2-medium"
 }
 
 variable "du_instance_image" {

@@ -2,14 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: du-source-pod
-  name: du-source-pod
+    app: ru-deployment
+  name: ru-deployment
   namespace: du-poc
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: du-source-pod
+      app: ru-pod
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -19,7 +19,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: du-source-pod
+        app: ru-pod
     spec:
       containers:
       - env:
@@ -28,9 +28,9 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: spec.nodeName
-        image: europe-west2-docker.pkg.dev/du-poc/du-images/source_image_new:latest
+        image: europe-west2-docker.pkg.dev/du-poc/du-images/du_poc_image:latest
         imagePullPolicy: IfNotPresent
-        name: source-image-new
+        name: ru-container
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File

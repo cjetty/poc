@@ -5,7 +5,7 @@ metadata:
   namespace: du-poc
 spec:
   selector:
-    app: du-source-pod
+    app: du-pod
   ports:
     - port: 80
       targetPort: 80
