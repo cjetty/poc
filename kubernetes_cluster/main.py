@@ -5,6 +5,8 @@ import subprocess
 from fastapi import FastAPI, HTTPException
 import uvicorn
 from pydantic import BaseModel
+from getmac import get_mac_address as gma
+
 app = FastAPI()
 
 class ReplayInput(BaseModel):
@@ -37,6 +39,12 @@ def pcap_trigger(input: ReplayInput):
     else:
         print("Unknown action called.. ")
         raise HTTPException(status_code=404, detail="Item not found")
+
+@app.get("/mac/")
+def get_mac_address():
+    mac = gma()
+    return mac
+
 
 
 if __name__ == "__main__":

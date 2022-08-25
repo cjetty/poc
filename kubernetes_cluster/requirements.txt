@@ -7,6 +7,7 @@ contextlib2==21.6.0
 contextvars==2.4
 dataclasses==0.6
 fastapi==0.79.0
+getmac==0.8.3
 h11==0.13.0
 httptools==0.3.0
 idna==3.3
