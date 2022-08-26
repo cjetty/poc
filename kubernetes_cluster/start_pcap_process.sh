@@ -5,10 +5,10 @@ pod_role=$2
 
 if [ $pod_role == 'ru' ]
 then
-  $dest_mac=`curl -X GET http://du-service/mac/`
+  dest_mac=`curl -X GET http://du-service/mac/`
   input_file= "ru_captured.pcap"
 else
-  $dest_mac=`curl -X GET http://ru-service/mac/`
+  dest_mac=`curl -X GET http://ru-service/mac/`
   input_file="port0_2022_7_1_8_29_51_0.pcap"
   curl -X POST http://ru-service/tcp_capture/ -H 'Content-Type: application/json' -d "{'action': "start"}"
 fi
