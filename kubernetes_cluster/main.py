@@ -11,6 +11,7 @@ app = FastAPI()
 
 class ReplayInput(BaseModel):
     loop: int = 5
+    pod_role: str = "du"
     action: str = "stop"
 
 
@@ -26,7 +27,8 @@ def pcap_trigger(input: ReplayInput):
         print("starting PCAP application..")
         print(f"Given Parameters loop: {input.loop}")
         p = subprocess.Popen(''.join(["/home/api_scripts/start_pcap_process.sh", ' ',
-                                    str(input.loop)]), 
+                                    str(input.loop), ' ',
+                                    str(input.pod_role)]), 
                             stdout=subprocess.PIPE, shell=True)
         print(p.communicate())
         return f"Started replay script with parameters loop: {input.loop} from pod {os.getenv('HOSTNAME', None)}"
@@ -42,6 +44,29 @@ def pcap_trigger(input: ReplayInput):
 def get_mac_address():
     mac = gma()
     return mac
+
+
+@app.post("/tcp_capture/")
+def pcap_trigger(input: ReplayInput):
+    if input.action == "start":
+        print("starting TCP DUMP capture..")
+        print(f"Given Parameters loop: {input.loop}")
+        p = subprocess.Popen(''.join(["tcpdump", ' ',
+                                    '-i', ' ',
+                                    'eth0', ' ', 
+                                    '-w', ' ',
+                                    'ru_captured.pcap']), 
+                            stdout=subprocess.PIPE, shell=True)
+        print(p.communicate())
+        return f"Started replay script with parameters loop: {input.loop} from pod {os.getenv('HOSTNAME', None)}"
+    elif ReplayInput.action == "stop":
+        p = subprocess.Popen("pkill -9 replay.sh", stdout=subprocess.PIPE, shell=True)
+        print("Stopping PCAP application..")
+        return "Stopped replay script"
+    else:
+        print("Unknown action called.. ")
+        raise HTTPException(status_code=404, detail="Item not found")
+
 
 
 
