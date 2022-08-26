@@ -5,5 +5,6 @@ RUN apt-get -y upgrade
 COPY . /home/api_scripts
 WORKDIR /home/api_scripts
 RUN chmod 777 /home/api_scripts/start_pcap_process.sh
+RUN chmod 777 /home/api_scripts/tcp_capture.sh
 RUN /usr/bin/pip install -r requirements.txt
 CMD python3 main.py  # PORT 8000

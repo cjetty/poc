@@ -35,7 +35,7 @@ def pcap_trigger(input: ReplayInput):
         print(p.communicate())
         return f"Started replay script with parameters loop: {input.loop} from pod {os.getenv('HOSTNAME', None)}"
     elif ReplayInput.action == "stop":
-        p = subprocess.Popen("pkill -9 replay.sh", stdout=subprocess.PIPE, shell=True)
+        p = subprocess.Popen("pkill -9 tcpreplay", stdout=subprocess.PIPE, shell=True)
         print("Stopping PCAP application..")
         return "Stopped replay script"
     else:
@@ -52,18 +52,15 @@ def get_mac_address():
 def pcap_trigger(input: CaptureInput):
     if input.action == "start":
         print("starting TCP DUMP capture..")
-        p = subprocess.Popen(''.join(["tcpdump", ' ',
-                                    '-i', ' ',
-                                    'eth0', ' ', 
-                                    '-w', ' ',
-                                    'ru_captured.pcap']), 
-                            stdout=subprocess.PIPE, shell=True)
+        p = subprocess.Popen(''.join(["/home/api_scripts/tcp_capture.sh"]), 
+                            stdout=subprocess.PIPE, shell=True, close_fds=True)
         print(p.communicate())
         return f"Started TCP DUMP capture in pod {os.getenv('HOSTNAME', None)}"
     elif ReplayInput.action == "stop":
-        p = subprocess.Popen("pkill -9 replay.sh", stdout=subprocess.PIPE, shell=True)
-        print("Stopping PCAP application..")
-        return "Stopped replay script"
+        print("Stopping tcpdump process..")
+        p = subprocess.Popen("pkill -9 tcpdump", stdout=subprocess.PIPE, shell=True)
+        print("Stopped tcpdump process..")
+        return "Stopped tcpdump capture"
     else:
         print("Unknown action called.. ")
         raise HTTPException(status_code=404, detail="Item not found")
