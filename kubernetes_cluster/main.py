@@ -14,6 +14,8 @@ class ReplayInput(BaseModel):
     pod_role: str = "du"
     action: str = "stop"
 
+class CaptureInput(BaseModel):
+    action: str = "start"
 
     
 @app.get("/")
@@ -47,7 +49,7 @@ def get_mac_address():
 
 
 @app.post("/tcp_capture/")
-def pcap_trigger(input: ReplayInput):
+def pcap_trigger(input: CaptureInput):
     if input.action == "start":
         print("starting TCP DUMP capture..")
         print(f"Given Parameters loop: {input.loop}")
