@@ -56,7 +56,7 @@ def pcap_trigger(input: CaptureInput):
                             stdout=subprocess.PIPE, shell=True, close_fds=True)
         print(p.communicate())
         return f"Started TCP DUMP capture in pod {os.getenv('HOSTNAME', None)}"
-    elif ReplayInput.action == "stop":
+    elif input.action == "stop":
         print("Stopping tcpdump process..")
         p = subprocess.Popen("pkill -9 tcpdump", stdout=subprocess.PIPE, shell=True)
         print("Stopped tcpdump process..")
