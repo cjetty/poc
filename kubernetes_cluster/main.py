@@ -26,7 +26,7 @@ def home():
 @app.post("/action/")
 def pcap_trigger(input: ReplayInput):
     if input.action == "start":
-        print("starting PCAP application..")
+        print("starting to push packets application..")
         print(f"Given Parameters loop: {input.loop}")
         p = subprocess.Popen(''.join(["/home/api_scripts/start_pcap_process.sh", ' ',
                                     str(input.loop), ' ',
@@ -52,7 +52,7 @@ def get_mac_address():
 def pcap_trigger(input: CaptureInput):
     if input.action == "start":
         print("starting TCP DUMP capture..")
-        p = subprocess.Popen(''.join(["nohup", " ", ".git /home/api_scripts/tcp_capture.sh", " ", "&"]), 
+        p = subprocess.Popen(''.join(["nohup", " ", "./home/api_scripts/tcp_capture.sh", " ", ">>", " ", "./out", "2>&1", "<&-", " ", "&"]), 
                             stdout=subprocess.PIPE, shell=True, close_fds=True)
         print(p.communicate())
         return f"Started TCP DUMP capture in pod {os.getenv('HOSTNAME', None)}"

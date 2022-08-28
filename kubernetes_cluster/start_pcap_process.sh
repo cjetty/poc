@@ -20,6 +20,8 @@ if [ $pod_role != 'ru'  ]
 then
   echo "Stopping tcpdump capture on the RU pod"
   curl -X POST http://ru-service/tcp_capture/ -H 'Content-Type: application/json' -d '{"action": "stop"}'
+  echo "Starting tcpdump capture on DU pod"
+  curl -X POST http://du-service/tcp_capture/ -H 'Content-Type: application/json' -d '{"action": "start"}'
   echo "Now starting the packet transfer from RU server"
   #echo "curl -X POST http://ru-service/action/ -H 'Content-Type: application/json' -d '{"loop": $loop_count, "pod_role": "ru", "action": "start"}'"
   curl -X POST http://ru-service/action/ -H 'Content-Type: application/json' -d '{"loop": 5, "pod_role": "ru", "action": "start"}'
