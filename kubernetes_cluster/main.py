@@ -52,7 +52,7 @@ def get_mac_address():
 def pcap_trigger(input: CaptureInput):
     if input.action == "start":
         print("starting TCP DUMP capture..")
-        p = subprocess.Popen(''.join(["/home/api_scripts/tcp_capture.sh"]), 
+        p = subprocess.Popen(''.join(["nohup", " ", ".git /home/api_scripts/tcp_capture.sh", " ", "&"]), 
                             stdout=subprocess.PIPE, shell=True, close_fds=True)
         print(p.communicate())
         return f"Started TCP DUMP capture in pod {os.getenv('HOSTNAME', None)}"
