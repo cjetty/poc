@@ -65,8 +65,5 @@ def pcap_trigger(input: CaptureInput):
         print("Unknown action called.. ")
         raise HTTPException(status_code=404, detail="Item not found")
 
-
-
-
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=80)

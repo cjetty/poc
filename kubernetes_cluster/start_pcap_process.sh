@@ -26,4 +26,7 @@ then
   curl -X POST http://du-service/tcp_capture/ -H 'Content-Type: application/json' -d '{"action": "start"}'
   echo "Now starting the packet transfer from RU server"
   curl -X POST http://ru-service/action/ -H 'Content-Type: application/json' -d '{"loop": 5, "pod_role": "ru", "action": "start"}'
+else
+  echo "Stopping tcpdump capture on DU pod"
+  curl -X POST http://du-service/tcp_capture/ -H 'Content-Type: application/json' -d '{"action": "stop"}'
 fi
