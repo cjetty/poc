@@ -54,7 +54,7 @@ def pcap_trigger(input: CaptureInput):
         print("starting TCP DUMP capture..")
         command = ''.join(["nohup", " ", "/home/api_scripts/tcp_capture.sh", " ", ">>", " ", "./out", "2>&1", "<&-", " ", "&"])
         print("command is %s" %command )
-        p2 = subprocess.Popen(''.join(["nohup", " ", "/home/api_scripts/tcp_capture.sh", " ", ">>", " ", "./out", "2>&1", "<&-", " ", "&"]), 
+        p2 = subprocess.Popen(''.join(["nohup", " ", "/home/api_scripts/tcp_capture.sh", " ", ">>", " ", "./out", "2>&", " ", "1<&-", " ", "&"]), 
                               shell=True, close_fds=True)
         print(p2.communicate())
         print("Process ID is %s" %p2.pid)
