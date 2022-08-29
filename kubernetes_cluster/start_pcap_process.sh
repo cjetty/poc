@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 loop_count=$1
 interface="eth0"
 pod_role=$2
