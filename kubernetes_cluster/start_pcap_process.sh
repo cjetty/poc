@@ -8,7 +8,7 @@ echo "Given parameters are $loop_count, $interface, $pod_role"
 if [ "$pod_role" = "ru" ]
 then
   dest_mac=`curl -X GET http://du-service/mac/`
-  input_file="ru_captured.pcap"
+  input_file="/home/api_scripts/ru_captured.pcap"
 else
   dest_mac=`curl -X GET http://ru-service/mac/`
   input_file="port0_2022_7_1_8_29_51_0.pcap"
