@@ -107,7 +107,6 @@ jobs:
 
     - name: Docker configuration
       run: |-
-        apt-get install gcc python3-dev python3-setuptools
         /usr/bin/pip3 uninstall crcmod
         /usr/bin/pip3 install --no-cache-dir -U crcmod
         /usr/bin/python3 -m pip install google-crc32c --target /opt/hostedtoolcache/gcloud/399.0.0/x64/lib/third_party
