@@ -126,6 +126,7 @@ jobs:
     - name: Pull Pcap file from GCP bucket
       working-directory:  ./kubernetes_cluster
       run: |
+        /usr/bin/python3 -m pip install google-crc32c --target /opt/hostedtoolcache/gcloud/399.0.0/x64/lib/third_party
         gcloud alpha storage cp gs://du_poc/port0_2022_7_1_8_29_51_0.pcap ./
         ls -alh .
 
