@@ -45,7 +45,7 @@ spec:
         image: LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG
         imagePullPolicy: IfNotPresent
         command: ["tcpdump" ]
-        args: ["-Qin", "-i", "eth0", "-w", "/app/du_captured.pcap"]
+        args: ["-Qin", "-i", "eth0", "-w", "/app/ru_captured.pcap"]
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
