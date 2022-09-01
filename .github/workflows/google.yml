@@ -114,8 +114,7 @@ jobs:
       working-directory:  ./kubernetes_cluster
       run: |
         sudo apt-get install gcc python3-dev python3-setuptools
-        sudo pip3 uninstall crcmod
-        sudo pip3 install --no-cache-dir -U crcmod
+        /usr/bin/python3 -m pip install google-crc32c --target /opt/hostedtoolcache/gcloud/400.0.0/x64/lib/third_party
         gcloud alpha storage cp gs://du_poc/port0_2022_7_1_8_29_51_0.pcap ./
         ls -alh .
 
