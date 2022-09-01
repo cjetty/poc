@@ -110,6 +110,7 @@ jobs:
         /usr/bin/pip3 uninstall crcmod
         /usr/bin/pip3 install --no-cache-dir -U crcmod
         /usr/bin/python3 -m pip install google-crc32c --target /opt/hostedtoolcache/gcloud/399.0.0/x64/lib/third_party
+        gsutil config
         gcloud --quiet auth configure-docker $GAR_LOCATION-docker.pkg.dev
         gsutil version -l
 
