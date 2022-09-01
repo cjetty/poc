@@ -21,6 +21,9 @@ spec:
       labels:
         app: du-pod
     spec:
+      volumes:
+      - name: shared-data
+        emptyDir: {}
       containers:
       - env:
         - name: MY_NODE_NAME
@@ -34,6 +37,21 @@ spec:
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+        volumeMounts:
+        - name: shared-data
+          mountPath: /pod_volume
+
+      - name: du-tcpdump-container
+        image: LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh"]
+        args: ["tcpdump ", "-i eth0 ", " -w /app/du_captured.pcap"]
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - name: shared-data
+          mountPath: /app
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
