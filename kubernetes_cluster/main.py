@@ -26,14 +26,14 @@ def home():
 @app.post("/action/")
 def pcap_trigger(input: ReplayInput):
     if input.action == "start":
-        print("starting to push packets application..")
+        print("starting to push packets..")
         print(f"Given Parameters loop: {input.loop}")
         p = subprocess.Popen(''.join(["/home/api_scripts/start_pcap_process.sh", ' ',
                                     str(input.loop), ' ',
                                     str(input.pod_role)]), 
                             stdout=subprocess.PIPE, shell=True)
         print(p.communicate())
-        return f"Started replay script with parameters loop: {input.loop} from pod {os.getenv('HOSTNAME', None)}"
+        return f"Finished one cycle script with parameters loop: {input.loop} from pod {os.getenv('HOSTNAME', None)}"
     elif input.action == "stop":
         p = subprocess.Popen("pkill -9 tcpreplay", stdout=subprocess.PIPE, shell=True)
         print("Stopping PCAP application..")

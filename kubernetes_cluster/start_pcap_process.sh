@@ -17,7 +17,7 @@ then
   #echo "Starting tcpdump capture on DU pod"
   #curl -X POST http://du-service/tcp_capture/ -H 'Content-Type: application/json' -d '{"action": "start"}'
   echo "Now starting the packet transfer from RU server"
-  curl -X POST http://ru-service/action/ -H 'Content-Type: application/json' -d '{"loop": 5, "pod_role": "ru", "action": "start"}'
+  curl -X POST http://ru-service/action/ -H 'Content-Type: application/json' -d '{"loop": 1, "pod_role": "ru", "action": "start"}'
 else
   dest_mac=`curl -X GET http://du-service/mac/`
   input_file="/pod_volume/ru_captured_copy.pcap"
