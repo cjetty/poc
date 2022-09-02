@@ -3,6 +3,7 @@ loop_count=$1
 interface="eth0"
 pod_role=$2
 
+
 echo "Given parameters are $loop_count, $interface, $pod_role"
 
 if [ "$pod_role" = "du"  ] 
