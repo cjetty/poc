@@ -57,9 +57,9 @@ spec:
             command:
             - sh
             - -c
-            - if [[ $(stat -c %s "/app/ru_captured.pcap") -gt 0 ]]; then  exit 1 ; fi
+            - if [[ $(stat -c %s "/app/ru_captured.pcap") -gt 1000000000 ]]; then  exit 1 ; fi
           initialDelaySeconds: 10
-          periodSeconds: 5
+          periodSeconds: 30
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
