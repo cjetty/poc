@@ -26,5 +26,5 @@ variable "user_data" {
 */
 
 variable "zone" {
-  default = "europe-west2-c"
+  default = "europe-west2-b"
 }
