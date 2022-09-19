@@ -21,7 +21,7 @@ class CaptureInput(BaseModel):
 @app.get("/")
 def home():
     pod_id = os.getenv('HOSTNAME', 'NotKnown')
-    return f"Controller Pod has been started Successfully on pod {pod_id}"
+    return f"DU Simulator Initialization completed, Ready to take commands ! "
     
 @app.post("/action/")
 def pcap_trigger(input: ReplayInput):
