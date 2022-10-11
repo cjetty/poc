@@ -52,14 +52,6 @@ spec:
         volumeMounts:
         - name: shared-data
           mountPath: /app
-        livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - if [[ $(stat -c %s "/app/du_captured.pcap") -gt 1000000000 ]]; then  exit 1 ; fi
-          initialDelaySeconds: 10
-          periodSeconds: 30
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
