@@ -1,12 +1,9 @@
 [![Build and Deploy to GKE](https://github.com/cjetty/poc/actions/workflows/google.yml/badge.svg?branch=main)](https://github.com/cjetty/poc/actions/workflows/google.yml)
-## Application Code
 
-
-
-
+This is a PoC repository used to demonstrate the cloudification of ORAN 5G deployment to Google Cloud Platform
 
 ## GKE cluster infrastructure as Code
-* 
+* One Cluster with One node (required to confine to free tier usage)
 
 
 
